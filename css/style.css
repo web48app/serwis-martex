@@ -675,3 +675,10 @@ html[data-theme="light"] .theme .i-moon{display:none}
 }
 .rcard__reply{margin-top:auto;padding:14px 16px;border-left:3px solid var(--red);background:var(--hover);border-radius:2px;font-size:14px;color:var(--soft);line-height:1.55}
 .rcard__reply b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px;font-weight:500}
+
+/* ---------- realistyczne koło ---------- */
+.wheel{width:100%;height:auto;display:block;filter:drop-shadow(0 40px 60px rgba(0,0,0,.55))}
+.wheel__spin{transform-box:view-box;transform-origin:300px 300px;animation:spin 14s linear infinite}
+html[data-theme="light"] .wheel{filter:drop-shadow(0 30px 45px rgba(0,0,0,.35))}
+.tyres__tag{top:auto;bottom:10%;right:-14px;transform:rotate(-5deg)}
+@media (max-width:640px){.tyres__tag{font-size:24px;right:0;padding:12px 16px}}
