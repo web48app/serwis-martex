@@ -11,19 +11,42 @@ def img(i, lazy=True):
             + (' loading="lazy"' if lazy else ' fetchpriority="high"') + ' referrerpolicy="no-referrer"')
 
 CID = "10363310737192749971"
+PLACE_ID = "ChIJvUtzHCODPUcRk4tdUzXg0Y8"
+
+# >>> DANE FIRMY — uzupełnij, puste pola się nie wyświetlają <<<
+COMPANY = {
+    "name": "Serwis Samochodowy Martex",   # pełna nazwa z CEIDG/KRS, np. "Martex Jan Kowalski"
+    "nip": "",                              # np. "8731234567"
+    "regon": "",
+    "email": "",                            # jeśli serwis ma maila
+}
 PHONE_ICO = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2z"/></svg>'
 TOKENS = {
     "{{MAPS}}": f"https://www.google.com/maps?cid={CID}",
-    "{{REVIEW}}": f"https://www.google.com/maps?cid={CID}",
+    "{{REVIEW}}": f"https://search.google.com/local/writereview?placeid={PLACE_ID}",
     "{{DIR}}": "https://www.google.com/maps/dir/?api=1&amp;destination=Serwis+Samochodowy+Martex,+Bielatowicza+5,+33-100+Tarn%C3%B3w",
     "{{WAZE}}": "https://waze.com/ul?ll=50.02672,20.9830121&amp;navigate=yes",
     "{{PHONE_ICO}}": PHONE_ICO,
+    "{{STAR_ICO}}": '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.5l2.9 6.1 6.6.8-4.9 4.6 1.3 6.6L12 17.3 6.1 20.6l1.3-6.6L2.5 9.4l6.6-.8z"/></svg>',
+    "{{MAP_SRC}}": "https://maps.google.com/maps?q=Serwis%20Samochodowy%20Martex%2C%20Bielatowicza%205%2C%2033-100%20Tarn%C3%B3w&amp;z=16&amp;output=embed",
     "{{SMS_ICO}}": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
     "{{PIN_ICO}}": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="10" r="2.5"/></svg>',
     "{{G_ICO}}": '<svg viewBox="0 0 48 48"><path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.7 29.2 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 13 4 4 13 4 24s9 20 20 20 20-9 20-20c0-1.3-.1-2.4-.4-3.5z"/><path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 15.1 19 12 24 12c3.1 0 5.8 1.2 7.9 3.1l5.7-5.7C34 6.1 29.3 4 24 4 16.3 4 9.7 8.3 6.3 14.7z"/><path fill="#4CAF50" d="M24 44c5.2 0 9.9-2 13.4-5.2l-6.2-5.2C29.2 35.1 26.7 36 24 36c-5.2 0-9.6-3.3-11.3-8l-6.5 5C9.5 39.6 16.2 44 24 44z"/><path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.8 2.2-2.2 4.2-4.1 5.6l6.2 5.2C37 39.2 44 34 44 24c0-1.3-.1-2.4-.4-3.5z"/></svg>',
 }
 
+def company_lines():
+    c = COMPANY
+    out = [c["name"], "ul. Bielatowicza 5, 33-100 Tarnów"]
+    if c["nip"]: out.append(f"NIP: {c['nip']}")
+    if c["regon"]: out.append(f"REGON: {c['regon']}")
+    return "<br>".join(out)
+
 def fill(s):
+    s = s.replace("{{COMPANY_LINES}}", company_lines())
+    s = s.replace("{{COMPANY_NAME}}", COMPANY["name"])
+    ids = ", ".join(x for x in [f"NIP {COMPANY['nip']}" if COMPANY['nip'] else "", f"REGON {COMPANY['regon']}" if COMPANY['regon'] else ""] if x)
+    s = s.replace("{{COMPANY_IDS_SEP}}", (", " + ids) if ids else "")
+    s = s.replace("{{EMAIL_LINE}}", f'<li>e-mail: <a href="mailto:{COMPANY["email"]}">{COMPANY["email"]}</a></li>' if COMPANY["email"] else "")
     s = re.sub(r"\{\{P(\d+)E\}\}", lambda m: img(int(m.group(1)), False), s)
     s = re.sub(r"\{\{P(\d+)\}\}", lambda m: img(int(m.group(1))), s)
     for k, v in TOKENS.items():
@@ -35,7 +58,8 @@ NAV = [("index.html", "Start", "home"), ("uslugi.html", "Usługi", "uslugi"),
        ("o-firmie.html", "O firmie", "o-firmie"), ("index.html#opinie", "Opinie", "opinie"),
        ("kontakt.html", "Kontakt", "kontakt")]
 
-def head(title, desc, path):
+def head(title, desc, path, robots=""):
+    taxid = f'"taxID":"{COMPANY["nip"]}",' if COMPANY["nip"] else ""
     return f'''<!DOCTYPE html>
 <html lang="pl">
 <head>
@@ -43,7 +67,7 @@ def head(title, desc, path):
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{title}</title>
 <meta name="description" content="{desc}">
-<meta name="theme-color" content="#0a0a0b">
+<meta name="theme-color" content="#0a0a0b">{robots}
 <link rel="canonical" href="https://martextarnow.pl/{path}">
 <meta property="og:type" content="website">
 <meta property="og:title" content="{title}">
@@ -52,12 +76,13 @@ def head(title, desc, path):
 <meta property="og:image" content="https://martextarnow.pl/img/og.jpg">
 <meta property="og:locale" content="pl_PL">
 <link rel="icon" type="image/png" href="logo_small.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<script>try{{var t=localStorage.getItem('martex-theme');if(t)document.documentElement.setAttribute('data-theme',t)}}catch(e){{}}</script>
+<link rel="preload" href="fonts/big-shoulders-display-latin-900-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/barlow-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="css/fonts.css">
 <link rel="stylesheet" href="css/style.css">
 <script type="application/ld+json">
-{{"@context":"https://schema.org","@type":"AutoRepair","name":"Serwis Samochodowy Martex","image":"https://martextarnow.pl/logo.png","url":"https://martextarnow.pl/","telephone":"+48605554349",
+{{"@context":"https://schema.org","@type":"AutoRepair","name":"Serwis Samochodowy Martex","image":"https://martextarnow.pl/logo.png","url":"https://martextarnow.pl/","telephone":"+48605554349",{taxid}
 "address":{{"@type":"PostalAddress","streetAddress":"Bielatowicza 5","postalCode":"33-100","addressLocality":"Tarnów","addressCountry":"PL"}},
 "geo":{{"@type":"GeoCoordinates","latitude":50.02672,"longitude":20.9830121}},
 "openingHoursSpecification":[{{"@type":"OpeningHoursSpecification","dayOfWeek":["Monday","Tuesday","Wednesday","Thursday","Friday"],"opens":"08:00","closes":"17:00"}},{{"@type":"OpeningHoursSpecification","dayOfWeek":"Saturday","opens":"08:00","closes":"14:00"}}],
@@ -87,8 +112,14 @@ def header(active):
     <nav class="nav__links">
       {links}
     </nav>
-    <a href="tel:+48605554349" class="btn btn--red nav__cta">{{{{PHONE_ICO}}}} 605 554 349</a>
-    <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    <div class="nav__right">
+      <button class="theme" type="button" aria-label="Przełącz jasny/ciemny motyw" title="Jasny / ciemny motyw">
+        <svg class="i-moon" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+        <svg class="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <a href="tel:+48605554349" class="btn btn--red nav__cta">{{{{PHONE_ICO}}}} 605 554 349</a>
+      <button class="burger" aria-label="Menu"><span></span><span></span><span></span></button>
+    </div>
   </div>
 </header>
 '''
@@ -100,6 +131,7 @@ FOOTER = '''
       <div>
         <img src="logo-martex.png" alt="Grupa Martex" width="263" height="155" class="foot__logo">
         <p>Serwis samochodowy w Tarnowie. Naprawa wszystkich marek samochodów osobowych i dostawczych.</p>
+        <p class="foot__company">{{COMPANY_LINES}}</p>
       </div>
       <div>
         <h4>Strona</h4>
@@ -111,11 +143,12 @@ FOOTER = '''
       </div>
       <div>
         <h4>Kontakt</h4>
-        <ul><li><a href="tel:+48605554349">605 554 349</a></li><li>ul. Bielatowicza 5</li><li>33-100 Tarnów</li><li><a href="{{MAPS}}" target="_blank" rel="noopener">Wizytówka Google →</a></li></ul>
+        <ul><li><a href="tel:+48605554349">605 554 349</a></li><li>ul. Bielatowicza 5</li><li>33-100 Tarnów</li><li><a href="{{MAPS}}" target="_blank" rel="noopener">Wizytówka Google →</a></li><li><a href="{{REVIEW}}" target="_blank" rel="noopener">★ Wystaw opinię</a></li></ul>
       </div>
     </div>
     <div class="foot__bottom">
       <span>© <span data-year>2026</span> Serwis Samochodowy Martex · Tarnów</span>
+      <span class="foot__legal"><a href="polityka-prywatnosci.html">Polityka prywatności i cookies</a><button type="button" data-cookie-settings>Ustawienia cookies</button></span>
       <span>Projekt i wykonanie: <a href="https://web48.app" target="_blank" rel="noopener">web48.app</a></span>
     </div>
   </div>
@@ -131,6 +164,17 @@ FOOTER = '''
   <button class="lb__p" aria-label="Poprzednie">‹</button>
   <img src="" alt="">
   <button class="lb__n" aria-label="Następne">›</button>
+</div>
+
+<button class="totop" type="button" aria-label="Przewiń do góry"><svg viewBox="0 0 24 24"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+
+<div class="cookies" role="dialog" aria-live="polite" aria-label="Pliki cookies">
+  <b>Ciasteczka 🍪</b>
+  <p>Strona zapamiętuje Twoje wybory (np. jasny/ciemny motyw) w przeglądarce. Za Twoją zgodą wczytamy też mapę Google, która zapisuje własne pliki cookies. Więcej w <a href="polityka-prywatnosci.html">polityce prywatności</a>.</p>
+  <div class="cookies__btns">
+    <button type="button" class="btn btn--red" data-consent="all">Akceptuję</button>
+    <button type="button" class="btn btn--ghost" data-consent="necessary">Tylko niezbędne</button>
+  </div>
 </div>
 
 <script src="js/main.js"></script>
@@ -161,9 +205,9 @@ CTA = '''
 </section>
 '''
 
-def page(fname, active, title, desc, body):
-    path = "" if fname == "index.html" else fname
-    html = head(title, desc, path) + header(active) + "\n<main id=\"top\">\n" + body + "\n</main>\n" + FOOTER
+def page(fname, active, title, desc, body, robots=""):
+    path = "" if fname == "index.html" else fname.replace(".html", "")
+    html = head(title, desc, path, robots) + header(active) + "\n<main id=\"top\">\n" + body + "\n</main>\n" + FOOTER
     open(os.path.join(ROOT, fname), "w", encoding="utf-8").write(fill(html))
     print("ok", fname, len(html))
 
@@ -196,3 +240,9 @@ page("kontakt.html", "kontakt",
      phero(3, "Kontakt", 'Kontakt<br><span class="red">i dojazd.</span>',
            "Najszybciej umówisz się telefonicznie. Drobne rzeczy — olej, klocki, żarówki — często robimy od ręki.")
      + part("kontakt.html"))
+
+page("polityka-prywatnosci.html", "", "Polityka prywatności i cookies — Serwis Samochodowy Martex",
+     "Polityka prywatności i plików cookies strony Serwisu Samochodowego Martex w Tarnowie.",
+     phero(4, "Polityka prywatności", 'Polityka<br><span class="red">prywatności.</span>',
+           "Krótko i po ludzku: jakie dane przetwarzamy, po co i jakie masz prawa.")
+     + part("polityka.html"))

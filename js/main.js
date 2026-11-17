@@ -133,6 +133,55 @@
     sub.forEach(a => { const t = document.querySelector(a.getAttribute('href')); if (t) sio.observe(t); });
   }
 
+
+  // ---------- Pamięć przeglądarki (bezpiecznie) ----------
+  const store = {
+    get: k => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k, v) => { try { localStorage.setItem(k, v); } catch {} }
+  };
+
+  // ---------- Motyw jasny / ciemny ----------
+  const root = document.documentElement;
+  const metaTheme = document.querySelector('meta[name="theme-color"]');
+  const applyTheme = t => {
+    if (t === 'light') root.setAttribute('data-theme', 'light'); else root.removeAttribute('data-theme');
+    if (metaTheme) metaTheme.content = t === 'light' ? '#f3f1ec' : '#0a0a0b';
+  };
+  applyTheme(store.get('martex-theme'));
+  document.querySelectorAll('.theme').forEach(b => b.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+    applyTheme(next); store.set('martex-theme', next);
+  }));
+
+  // ---------- Przycisk do góry ----------
+  const totop = document.querySelector('.totop');
+  if (totop) {
+    const t = () => totop.classList.toggle('show', scrollY > 700);
+    addEventListener('scroll', t, { passive: true }); t();
+    totop.addEventListener('click', () => scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  // ---------- Cookies + mapa Google ----------
+  const loadMaps = () => document.querySelectorAll('[data-map]').forEach(m => {
+    if (m.classList.contains('loaded')) return;
+    const f = document.createElement('iframe');
+    f.src = m.dataset.map; f.loading = 'lazy'; f.title = 'Mapa dojazdu — Serwis Martex';
+    f.referrerPolicy = 'no-referrer-when-downgrade';
+    m.prepend(f); m.classList.add('loaded');
+  });
+  const banner = document.querySelector('.cookies');
+  const consent = store.get('martex-consent');
+  if (consent === 'all') loadMaps();
+  if (banner && !consent) setTimeout(() => banner.classList.add('show'), 900);
+  document.querySelectorAll('[data-consent]').forEach(b => b.addEventListener('click', () => {
+    store.set('martex-consent', b.dataset.consent);
+    banner.classList.remove('show');
+    if (b.dataset.consent === 'all') loadMaps();
+    else document.querySelectorAll('[data-map].loaded').forEach(m => { m.querySelector('iframe')?.remove(); m.classList.remove('loaded'); });
+  }));
+  document.querySelectorAll('[data-cookie-settings]').forEach(b => b.addEventListener('click', () => banner && banner.classList.add('show')));
+  document.querySelectorAll('[data-map-load]').forEach(b => b.addEventListener('click', loadMaps));
+
   // ---------- Rok w stopce ----------
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 })();
