@@ -673,3 +673,5 @@ html[data-theme="light"] .theme .i-moon{display:none}
   .plist li b{font-size:21px}
   .igrid{grid-template-columns:1fr}
 }
+.rcard__reply{margin-top:auto;padding:14px 16px;border-left:3px solid var(--red);background:var(--hover);border-radius:2px;font-size:14px;color:var(--soft);line-height:1.55}
+.rcard__reply b{display:block;font-family:var(--mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-bottom:6px;font-weight:500}

@@ -182,6 +182,45 @@
   document.querySelectorAll('[data-cookie-settings]').forEach(b => b.addEventListener('click', () => banner && banner.classList.add('show')));
   document.querySelectorAll('[data-map-load]').forEach(b => b.addEventListener('click', loadMaps));
 
+
+  // ---------- Opinie z Google (Business Profile API przez /api/opinie) ----------
+  const needG = document.querySelector('[data-g], .rev__track');
+  if (needG && location.protocol.startsWith('http')) {
+    const esc = t => String(t).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const ago = iso => {
+      const d = (Date.now() - new Date(iso)) / 864e5;
+      const pl = (n, a, b, c) => n === 1 ? a : (n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 10 || n % 100 >= 20)) ? b : c;
+      if (d < 1) return 'dzisiaj';
+      if (d < 7) { const n = Math.floor(d); return n === 1 ? 'wczoraj' : `${n} dni temu`; }
+      if (d < 30) { const n = Math.floor(d / 7); return n === 1 ? 'tydzień temu' : `${n} ${pl(n, 'tydzień', 'tygodnie', 'tygodni')} temu`; }
+      if (d < 365) { const n = Math.floor(d / 30); return n === 1 ? 'miesiąc temu' : `${n} ${pl(n, 'miesiąc', 'miesiące', 'miesięcy')} temu`; }
+      const n = Math.floor(d / 365); return n === 1 ? 'rok temu' : `${n} ${pl(n, 'rok', 'lata', 'lat')} temu`;
+    };
+    fetch('/api/opinie').then(r => r.ok ? r.json() : null).then(g => {
+      if (!g || g.source !== 'google') return;
+      if (g.rating) {
+        const r = g.rating.toFixed(1).replace('.', ',');
+        document.querySelectorAll('[data-g="rating"]').forEach(el => el.textContent = r);
+        document.querySelectorAll('[data-g="rating-count"]').forEach(el => { el.dataset.count = g.rating; el.textContent = r; });
+      }
+      if (g.count) {
+        document.querySelectorAll('[data-g="count"]').forEach(el => el.textContent = g.count);
+        document.querySelectorAll('[data-g="count-count"]').forEach(el => { el.dataset.count = g.count; el.textContent = g.count; });
+      }
+      const track = document.querySelector('.rev__track');
+      if (track && g.reviews && g.reviews.length) {
+        track.innerHTML = g.reviews.map(v => `
+          <article class="rcard">
+            <div class="rcard__top"><div class="rcard__who"><span class="av">${esc((v.name || 'K').trim().charAt(0).toUpperCase())}</span><div><b>${esc(v.name)}</b><small>Google · ${esc(ago(v.date))}</small></div></div><span class="stars">${'★'.repeat(v.stars)}${'☆'.repeat(5 - v.stars)}</span></div>
+            <p>„${esc(v.text)}”</p>
+            ${v.reply ? `<div class="rcard__reply"><b>Odpowiedź Martex</b>${esc(v.reply)}</div>` : ''}
+          </article>`).join('');
+        const lbl = document.querySelector('[data-g="shown"]');
+        if (lbl) lbl.textContent = g.reviews.length;
+      }
+    }).catch(() => {});
+  }
+
   // ---------- Rok w stopce ----------
   document.querySelectorAll('[data-year]').forEach(el => el.textContent = new Date().getFullYear());
 })();
