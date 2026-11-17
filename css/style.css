@@ -682,3 +682,16 @@ html[data-theme="light"] .theme .i-moon{display:none}
 html[data-theme="light"] .wheel{filter:drop-shadow(0 30px 45px rgba(0,0,0,.35))}
 .tyres__tag{top:auto;bottom:10%;right:-14px;transform:rotate(-5deg)}
 @media (max-width:640px){.tyres__tag{font-size:24px;right:0;padding:12px 16px}}
+@media (max-width:640px){
+  .legal table,.legal tbody,.legal tr,.legal td{display:block;width:100%}
+  .legal tr:first-child{display:none}
+  .legal tr{padding:14px 0;border-bottom:1px solid var(--line)}
+  .legal td{border:0;padding:2px 0}
+  .legal td:first-child{font-weight:600;color:var(--hi);margin-bottom:4px}
+  .map__consent{justify-content:flex-start;padding-top:60px}
+  .plist li b small{display:inline}
+}
+@media (max-width:640px){
+  .map--tall{min-height:520px}
+  .map__consent{padding:34px 22px 0;gap:12px}
+}
