@@ -14,7 +14,7 @@ CID = "10363310737192749971"
 PLACE_ID = "ChIJvUtzHCODPUcRk4tdUzXg0Y8"
 
 # >>> CENNIK: True = widoczny w menu i dla Google. Zmień po zatwierdzeniu cen przez właściciela. <<<
-CENNIK_LIVE = False
+CENNIK_LIVE = True
 
 # >>> DANE FIRMY — uzupełnij, puste pola się nie wyświetlają <<<
 COMPANY = {
