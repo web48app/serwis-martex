@@ -13,6 +13,9 @@ def img(i, lazy=True):
 CID = "10363310737192749971"
 PLACE_ID = "ChIJvUtzHCODPUcRk4tdUzXg0Y8"
 
+# >>> CENNIK: True = widoczny w menu i dla Google. Zmień po zatwierdzeniu cen przez właściciela. <<<
+CENNIK_LIVE = False
+
 # >>> DANE FIRMY — uzupełnij, puste pola się nie wyświetlają <<<
 COMPANY = {
     "name": "Serwis Samochodowy Martex",   # pełna nazwa z CEIDG/KRS, np. "Martex Jan Kowalski"
@@ -42,6 +45,7 @@ def company_lines():
     return "<br>".join(out)
 
 def fill(s):
+    s = s.replace("{{CENNIK_LI}}", '<li><a href="cennik.html">Cennik</a></li>' if CENNIK_LIVE else "")
     s = s.replace("{{COMPANY_LINES}}", company_lines())
     s = s.replace("{{COMPANY_NAME}}", COMPANY["name"])
     ids = ", ".join(x for x in [f"NIP {COMPANY['nip']}" if COMPANY['nip'] else "", f"REGON {COMPANY['regon']}" if COMPANY['regon'] else ""] if x)
@@ -54,8 +58,9 @@ def fill(s):
     assert "{{" not in s, [l for l in s.split("\n") if "{{" in l][:3]
     return s
 
-NAV = [("index.html", "Start", "home"), ("uslugi.html", "Usługi", "uslugi"),
-       ("o-firmie.html", "O firmie", "o-firmie"), ("index.html#opinie", "Opinie", "opinie"),
+NAV = [("index.html", "Start", "home"), ("uslugi.html", "Usługi", "uslugi")] \
+    + ([("cennik.html", "Cennik", "cennik")] if CENNIK_LIVE else []) \
+    + [("o-firmie.html", "O firmie", "o-firmie"), ("index.html#opinie", "Opinie", "opinie"),
        ("kontakt.html", "Kontakt", "kontakt")]
 
 def head(title, desc, path, robots=""):
@@ -135,7 +140,7 @@ FOOTER = '''
       </div>
       <div>
         <h4>Strona</h4>
-        <ul><li><a href="index.html">Start</a></li><li><a href="uslugi.html">Usługi</a></li><li><a href="o-firmie.html">O firmie</a></li><li><a href="index.html#opinie">Opinie</a></li><li><a href="kontakt.html">Kontakt i dojazd</a></li></ul>
+        <ul><li><a href="index.html">Start</a></li><li><a href="uslugi.html">Usługi</a></li>{{CENNIK_LI}}<li><a href="o-firmie.html">O firmie</a></li><li><a href="index.html#opinie">Opinie</a></li><li><a href="kontakt.html">Kontakt i dojazd</a></li></ul>
       </div>
       <div>
         <h4>Godziny</h4>
@@ -246,3 +251,10 @@ page("polityka-prywatnosci.html", "", "Polityka prywatności i cookies — Serwi
      phero(4, "Polityka prywatności", 'Polityka<br><span class="red">prywatności.</span>',
            "Krótko i po ludzku: jakie dane przetwarzamy, po co i jakie masz prawa.")
      + part("polityka.html"))
+
+page("cennik.html", "cennik", "Cennik — Serwis Samochodowy Martex Tarnów",
+     "Orientacyjny cennik Serwisu Samochodowego Martex w Tarnowie: wymiana opon, olej, hamulce, klimatyzacja, diagnostyka. Większe naprawy wyceniamy indywidualnie.",
+     phero(8, "Cennik", 'Cennik<br><span class="red">bez niespodzianek.</span>',
+           "Ceny wyjściowe najczęstszych usług. Większe naprawy wyceniamy indywidualnie — zawsze przed rozpoczęciem pracy.")
+     + part("cennik.html") + CTA,
+     robots="" if CENNIK_LIVE else '\n<meta name="robots" content="noindex">')
