@@ -1,0 +1,217 @@
+/* ---------- reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 12px);
+  overflow-x: clip;
+}
+body {
+  overflow-x: clip;
+  background: var(--bg);
+  color: var(--txt);
+  font-family: var(--body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img,
+svg {
+  max-width: 100%;
+  display: block;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+button {
+  font: inherit;
+  cursor: pointer;
+  border: 0;
+  background: none;
+  color: inherit;
+}
+ul {
+  list-style: none;
+}
+address {
+  font-style: normal;
+}
+::selection {
+  background: var(--red);
+  color: #fff;
+}
+
+/* ziarno */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1000;
+  opacity: var(--grain);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---------- dostępność ---------- */
+:focus-visible {
+  outline: 2px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 2000;
+  background: var(--red);
+  color: #fff;
+  padding: 10px 16px;
+  font-weight: 600;
+  border-radius: var(--r);
+  transition: top 0.2s;
+}
+.skip-link:focus {
+  top: 12px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* ---------- layout ---------- */
+.wrap {
+  width: min(var(--wrap), 100% - var(--gutter));
+  margin-inline: auto;
+}
+section {
+  position: relative;
+}
+.sec {
+  padding: 140px 0;
+}
+.sec--alt {
+  background: var(--bg-2);
+}
+@media (max-width: 900px) {
+  .sec {
+    padding: 100px 0;
+  }
+}
+
+/* ---------- typografia ---------- */
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 900;
+  text-transform: uppercase;
+  line-height: 0.88;
+  letter-spacing: -0.01em;
+}
+h2 {
+  font-size: clamp(48px, 7vw, 110px);
+}
+h1 em,
+h2 em,
+.accent {
+  font-style: normal;
+  color: var(--red);
+}
+.lead {
+  color: var(--mute);
+  font-size: 19px;
+  max-width: 560px;
+}
+.label {
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--red);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.label::before {
+  content: '';
+  width: 28px;
+  height: 2px;
+  background: var(--red);
+}
+.stars {
+  color: var(--star);
+  letter-spacing: 2px;
+  font-size: 15px;
+}
+.mono {
+  font-family: var(--mono);
+}
+@media (max-width: 640px) {
+  body {
+    font-size: 16px;
+  }
+}
+
+/* ---------- animacja wejścia (tylko z JS — bez JS treść jest widoczna) ---------- */
+.js .rv {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.9s var(--ease-out),
+    transform 0.9s var(--ease-out);
+}
+.js .rv.in {
+  opacity: 1;
+  transform: none;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes tick {
+  to {
+    transform: translateX(-50%);
+  }
+}
+@keyframes heroZoom {
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  .js .rv {
+    opacity: 1;
+    transform: none;
+  }
+}

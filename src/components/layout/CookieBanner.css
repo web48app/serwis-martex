@@ -1,0 +1,64 @@
+.cookies {
+  position: fixed;
+  left: 20px;
+  bottom: 20px;
+  z-index: 400;
+  max-width: 440px;
+  background: var(--steel);
+  color: var(--txt);
+  border: 1px solid var(--line-2);
+  border-top: 3px solid var(--red);
+  border-radius: var(--r);
+  padding: 24px 24px 22px;
+  box-shadow: 0 30px 80px -20px rgba(0, 0, 0, 0.6);
+  transform: translateY(30px);
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    0.4s,
+    visibility 0s 0.4s;
+}
+.cookies.show {
+  transform: none;
+  opacity: 1;
+  visibility: visible;
+  transition: 0.4s;
+}
+.cookies b {
+  display: block;
+  font-family: var(--display);
+  font-size: 26px;
+  text-transform: uppercase;
+  line-height: 1;
+  margin-bottom: 10px;
+}
+.cookies p {
+  font-size: 14px;
+  color: var(--mute);
+  line-height: 1.55;
+}
+.cookies p a {
+  color: var(--red);
+  text-decoration: underline;
+}
+.cookies__btns {
+  display: flex;
+  gap: 8px;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.cookies__btns .btn {
+  flex: 1;
+  justify-content: center;
+  padding: 12px 16px;
+  font-size: 17px;
+}
+@media (max-width: 640px) {
+  .cookies {
+    left: 10px;
+    right: 10px;
+    bottom: 68px;
+    max-width: none;
+    padding: 20px;
+  }
+}

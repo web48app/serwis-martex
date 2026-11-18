@@ -1,0 +1,40 @@
+/* Wzorce używane na kilku podstronach */
+
+/* duży numer telefonu */
+.cbig {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(46px, 5.4vw, 84px);
+  line-height: 0.9;
+  display: block;
+  transition: 0.2s;
+}
+.cbig:hover {
+  color: var(--red);
+}
+
+/* ramka z wezwaniem do działania (opinie, cennik) */
+.revcta {
+  margin-top: 34px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  padding: 26px 30px;
+  border: 1px dashed var(--line-2);
+  border-radius: var(--r);
+}
+.revcta p {
+  color: var(--soft);
+  font-size: 18px;
+}
+.revcta b {
+  color: var(--hi);
+}
+@media (max-width: 640px) {
+  .revcta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

@@ -1,0 +1,14 @@
+.nf {
+  padding: 140px 0;
+  min-height: 70vh;
+}
+.nf h1 {
+  font-size: clamp(64px, 12vw, 180px);
+  margin: 22px 0 26px;
+}
+.nf__btns {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 36px;
+}

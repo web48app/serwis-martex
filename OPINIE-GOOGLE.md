@@ -1,6 +1,6 @@
 # Opinie Google — wszystkie, za darmo, same się aktualizują
 
-Strona pobiera opinie przez **Google Business Profile API** (bezpłatne) w funkcji `api/opinie.js`.
+Strona pobiera opinie przez **Google Business Profile API** (bezpłatne) w funkcji `api/opinie.ts`.
 Dopóki nie ustawisz kluczy, strona pokazuje opinie wpisane na stałe — nic się nie psuje.
 
 ## 1. Dostęp do wizytówki (właściciel)
@@ -27,7 +27,7 @@ Czekasz na maila z akceptacją (kilka dni – kilka tygodni).
    Zapisz *Client ID* i *Client secret*.
 
 ## 5. Pobierz token (jednorazowo, u siebie)
-W PowerShellu, w folderze strony:
+W PowerShellu, w folderze projektu:
 ```powershell
 $env:GBP_CLIENT_ID="tu-client-id"
 $env:GBP_CLIENT_SECRET="tu-client-secret"

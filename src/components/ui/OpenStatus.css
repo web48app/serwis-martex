@@ -1,0 +1,20 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--hi);
+}
+.status i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--mute);
+  flex: none;
+}
+.status.is-open i {
+  background: var(--ok);
+  animation: pulse 2s infinite;
+}
+.status.is-closed i {
+  background: var(--red);
+}

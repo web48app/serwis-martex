@@ -1,0 +1,35 @@
+.hours {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+}
+.hours th,
+.hours td {
+  padding: 9px 0;
+  border-bottom: 1px dashed var(--line);
+  font-weight: 400;
+  text-align: left;
+}
+.hours td {
+  text-align: right;
+  font-family: var(--mono);
+  font-size: 14px;
+}
+.hours tr.today th,
+.hours tr.today td {
+  color: var(--hi);
+  font-weight: 600;
+}
+.hours tr.today th::before {
+  content: '';
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  transform: rotate(45deg);
+  margin-right: 10px;
+}
+.hours tr.off th,
+.hours tr.off td {
+  color: var(--mute);
+}

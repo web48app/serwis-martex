@@ -1,0 +1,154 @@
+.contact__grid {
+  display: grid;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 16px;
+}
+.cbox {
+  background: var(--steel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 44px;
+  box-shadow: var(--card-shadow);
+}
+.crow {
+  padding: 26px 0;
+  border-bottom: 1px solid var(--line);
+}
+.crow:first-child {
+  padding-top: 0;
+}
+.crow--last {
+  border: 0;
+  padding-bottom: 0;
+}
+.crow .label {
+  display: flex;
+  margin-bottom: 10px;
+}
+.crow address {
+  font-size: 22px;
+  font-weight: 500;
+}
+.crow__status {
+  display: flex;
+  margin-bottom: 14px;
+}
+.cbtns {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.cbtns .btn {
+  padding: 14px 20px;
+  font-size: 19px;
+}
+/* mapa wypełnia wysokość karty obok */
+.contact__grid > .rv {
+  display: flex;
+  flex-direction: column;
+}
+.contact__grid .map {
+  flex: 1;
+}
+.rgrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+.rcardx {
+  background: var(--steel);
+  border: 1px solid var(--line);
+  border-radius: var(--r);
+  padding: 34px 30px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: var(--card-shadow);
+}
+.rcardx__n {
+  position: absolute;
+  right: 18px;
+  bottom: -6px;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 70px;
+  color: var(--ghost);
+  line-height: 1;
+}
+.rcardx h3 {
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+.rcardx .mono {
+  font-size: 15px;
+  color: var(--soft);
+  line-height: 1.8;
+}
+.copy {
+  margin-top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  border: 1px solid var(--line-2);
+  border-radius: 2px;
+  transition: 0.2s;
+}
+.copy svg {
+  width: 14px;
+  height: 14px;
+}
+.copy:hover {
+  border-color: var(--red);
+  color: var(--hi);
+}
+.copy.done {
+  background: var(--ok);
+  border-color: var(--ok);
+  color: #000;
+}
+.apps {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.app {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border: 1px solid var(--line-2);
+  border-radius: var(--r);
+  font-weight: 600;
+  transition: 0.2s;
+}
+.app svg {
+  width: 18px;
+  height: 18px;
+}
+.app:hover {
+  background: var(--red);
+  border-color: var(--red);
+  color: #fff;
+}
+.faq-aside {
+  margin-top: 24px;
+}
+.faq-aside__btn {
+  margin-top: 30px;
+}
+@media (max-width: 1100px) {
+  .contact__grid,
+  .rgrid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 640px) {
+  .cbox {
+    padding: 30px 24px;
+  }
+}

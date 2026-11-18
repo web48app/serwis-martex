@@ -1,5 +1,5 @@
 // Jednorazowy skrypt: pobiera REFRESH TOKEN oraz ID konta i lokalizacji dla Google Business Profile API.
-// Uruchom u siebie (PowerShell, w folderze strony):
+// Uruchom u siebie (PowerShell, w folderze projektu):
 //   $env:GBP_CLIENT_ID="...";  $env:GBP_CLIENT_SECRET="...";  node scripts/gbp-token.mjs
 // Otworzy się link do logowania Google — zaloguj się kontem, które jest MENEDŻEREM wizytówki Martex.
 // Na końcu skrypt wypisze 5 wartości do wklejenia w Vercel → Settings → Environment Variables.

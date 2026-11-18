@@ -1,0 +1,37 @@
+.mbar {
+  display: none;
+}
+@media (max-width: 640px) {
+  .mbar {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 200;
+    border-top: 1px solid var(--line-2);
+    padding-bottom: env(safe-area-inset-bottom);
+    background: #111;
+  }
+  .mbar a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 17px;
+    font-family: var(--display);
+    font-weight: 800;
+    font-size: 20px;
+    text-transform: uppercase;
+    color: #fff;
+    background: #111;
+  }
+  .mbar a:first-child {
+    background: var(--red);
+  }
+  .mbar svg {
+    width: 20px;
+    height: 20px;
+  }
+}

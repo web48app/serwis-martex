@@ -1,0 +1,40 @@
+.totop {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  z-index: 150;
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  background: var(--red);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: 0 14px 40px -10px rgba(225, 6, 0, 0.75);
+  opacity: 0;
+  transform: translateY(20px) scale(0.9);
+  pointer-events: none;
+  transition: 0.35s;
+}
+.totop.show {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+.totop:hover {
+  background: var(--red-2);
+  transform: translateY(-3px);
+}
+.totop svg {
+  width: 22px;
+  height: 22px;
+  stroke-width: 2.5;
+}
+@media (max-width: 640px) {
+  .totop {
+    bottom: 76px;
+    right: 14px;
+    width: 48px;
+    height: 48px;
+  }
+}

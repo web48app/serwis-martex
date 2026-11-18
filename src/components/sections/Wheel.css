@@ -1,0 +1,37 @@
+.wheel {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: drop-shadow(0 40px 60px rgba(0, 0, 0, 0.55));
+}
+html[data-theme='light'] .wheel {
+  filter: drop-shadow(0 30px 45px rgba(0, 0, 0, 0.35));
+}
+.wheel__spin {
+  transform-box: view-box;
+  transform-origin: 300px 300px;
+  animation: spin 14s linear infinite;
+}
+.wheel__text {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 26px;
+  letter-spacing: 3px;
+  fill: #45464c;
+}
+.wheel__caliper-text,
+.wheel__cap-text {
+  font-family: var(--display);
+  font-weight: 900;
+  text-anchor: middle;
+  dominant-baseline: middle;
+}
+.wheel__caliper-text {
+  font-size: 22px;
+  letter-spacing: 2px;
+  fill: #fff;
+}
+.wheel__cap-text {
+  font-size: 38px;
+  fill: var(--red);
+}

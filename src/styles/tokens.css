@@ -1,0 +1,87 @@
+/* ==========================================================
+   Design tokens — ciemny motyw domyślny, jasny przez [data-theme="light"].
+   Sekcje z klasą .island zawsze zostają ciemne (zdjęcia, pasek górny, stopka).
+   ========================================================== */
+:root {
+  --red: #e10600;
+  --red-2: #ff2a1f;
+  --red-dk: #8f0400;
+  --ok: #22c55e;
+  --star: #fbbc04;
+
+  --bg: #0a0a0b;
+  --bg-2: #111214;
+  --steel: #17181b;
+  --steel-2: #1f2024;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --txt: #ececec;
+  --mute: #8d9097;
+  --soft: #c9cacd;
+  --hi: #fff;
+  --glass: rgba(10, 10, 11, 0.72);
+  --glass-2: rgba(10, 10, 11, 0.92);
+  --stroke: rgba(255, 255, 255, 0.2);
+  --ghost: rgba(255, 255, 255, 0.025);
+  --hover: rgba(255, 255, 255, 0.05);
+  --shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.8);
+  --card-shadow: none;
+  --grain: 0.05;
+
+  --display: 'Big Shoulders Display', 'Oswald', Impact, sans-serif;
+  --body: 'Barlow', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --mono: 'JetBrains Mono', ui-monospace, Consolas, monospace;
+
+  --wrap: 1280px;
+  --gutter: 48px;
+  --r: 4px;
+  --nav-h: 78px;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  color-scheme: dark;
+}
+
+html[data-theme='light'] {
+  --bg: #f3f1ec;
+  --bg-2: #e9e6df;
+  --steel: #fff;
+  --steel-2: #fbfaf7;
+  --line: rgba(20, 20, 22, 0.1);
+  --line-2: rgba(20, 20, 22, 0.18);
+  --txt: #17181b;
+  --mute: #5d6169;
+  --soft: #3d4047;
+  --hi: #0d0d0f;
+  --glass: rgba(243, 241, 236, 0.78);
+  --glass-2: rgba(243, 241, 236, 0.95);
+  --stroke: rgba(20, 20, 22, 0.22);
+  --ghost: rgba(20, 20, 22, 0.045);
+  --hover: rgba(20, 20, 22, 0.05);
+  --shadow: 0 24px 60px -28px rgba(20, 20, 22, 0.35);
+  --card-shadow: 0 1px 0 rgba(20, 20, 22, 0.04), 0 18px 40px -30px rgba(20, 20, 22, 0.35);
+  --grain: 0.035;
+  color-scheme: light;
+}
+
+.island {
+  --bg: #0a0a0b;
+  --bg-2: #111214;
+  --steel: #17181b;
+  --steel-2: #1f2024;
+  --line: rgba(255, 255, 255, 0.08);
+  --line-2: rgba(255, 255, 255, 0.14);
+  --txt: #ececec;
+  --mute: #8d9097;
+  --soft: #c9cacd;
+  --hi: #fff;
+  --stroke: rgba(255, 255, 255, 0.2);
+  --ghost: rgba(255, 255, 255, 0.025);
+  --hover: rgba(255, 255, 255, 0.05);
+  --card-shadow: none;
+  color: var(--txt);
+}
+
+@media (max-width: 640px) {
+  :root {
+    --gutter: 36px;
+  }
+}

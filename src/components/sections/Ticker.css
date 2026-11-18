@@ -1,0 +1,33 @@
+.ticker {
+  background: var(--red);
+  color: #fff;
+  overflow: hidden;
+  transform: rotate(-1.2deg);
+  margin: -14px -20px 0;
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 20px 60px -20px rgba(225, 6, 0, 0.6);
+}
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: tick 40s linear infinite;
+}
+.ticker__track span {
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(28px, 3vw, 44px);
+  text-transform: uppercase;
+  padding: 14px 26px;
+  display: flex;
+  align-items: center;
+  gap: 52px;
+  white-space: nowrap;
+}
+.ticker__track span::after {
+  content: '';
+  width: 14px;
+  height: 14px;
+  background: #000;
+  transform: rotate(45deg);
+}

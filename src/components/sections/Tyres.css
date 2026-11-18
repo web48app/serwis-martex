@@ -1,0 +1,87 @@
+.tyres {
+  background: var(--bg-2);
+  overflow: hidden;
+}
+.hazard {
+  height: 14px;
+  background: repeating-linear-gradient(-45deg, var(--red) 0 22px, #000 22px 44px);
+}
+.tyres__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 80px;
+  align-items: center;
+}
+.tyres__visual {
+  position: relative;
+  max-width: 560px;
+}
+.tyres__tag {
+  position: absolute;
+  right: -14px;
+  bottom: 10%;
+  background: var(--red);
+  color: #fff;
+  padding: 16px 22px;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: 34px;
+  line-height: 0.9;
+  text-transform: uppercase;
+  transform: rotate(-5deg);
+  box-shadow: 0 20px 50px -10px rgba(225, 6, 0, 0.6);
+}
+.tyres__tag small {
+  display: block;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  margin-top: 6px;
+}
+.tyres__lead {
+  margin-top: 26px;
+}
+.tyres__list {
+  margin: 36px 0 40px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line);
+}
+.tyres__list li {
+  padding: 16px 20px 16px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  font-weight: 500;
+}
+.tyres__list li::before {
+  content: '';
+  width: 8px;
+  height: 8px;
+  background: var(--red);
+  transform: rotate(45deg);
+  flex: none;
+}
+@media (max-width: 1100px) {
+  .tyres__grid {
+    grid-template-columns: 1fr;
+    gap: 50px;
+  }
+  .tyres__visual {
+    max-width: 420px;
+    margin-inline: auto;
+    width: 100%;
+  }
+}
+@media (max-width: 640px) {
+  .tyres__tag {
+    font-size: 24px;
+    right: 0;
+    padding: 12px 16px;
+  }
+  .tyres__list {
+    grid-template-columns: 1fr;
+  }
+}

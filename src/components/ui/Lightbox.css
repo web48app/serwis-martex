@@ -1,0 +1,46 @@
+.lb {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: rgba(0, 0, 0, 0.94);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px;
+}
+.lb img {
+  max-height: 88vh;
+  max-width: 92vw;
+  object-fit: contain;
+  border-radius: var(--r);
+}
+.lb__btn {
+  position: absolute;
+  color: #fff;
+  width: 64px;
+  height: 64px;
+  display: grid;
+  place-items: center;
+  transition: 0.2s;
+}
+.lb__btn svg {
+  width: 40px;
+  height: 40px;
+}
+.lb__btn:hover {
+  color: var(--red);
+}
+.lb__x {
+  top: 16px;
+  right: 20px;
+}
+.lb__p {
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.lb__n {
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+}

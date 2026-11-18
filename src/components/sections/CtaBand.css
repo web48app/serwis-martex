@@ -1,0 +1,25 @@
+.cta {
+  padding: 150px 0;
+  text-align: center;
+  overflow: hidden;
+  isolation: isolate;
+}
+.cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at center, rgba(225, 6, 0, 0.28), transparent 60%);
+}
+html[data-theme='light'] .cta::before {
+  background: radial-gradient(ellipse at center, rgba(225, 6, 0, 0.14), transparent 60%);
+}
+.cta h2 {
+  font-size: clamp(60px, 10vw, 170px);
+}
+.cta p {
+  color: var(--mute);
+  margin: 26px auto 40px;
+  max-width: 520px;
+  font-size: 19px;
+}

@@ -1,0 +1,60 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 18px 28px;
+  font-family: var(--display);
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-radius: var(--r);
+  transition: 0.25s;
+  position: relative;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.btn svg {
+  width: 20px;
+  height: 20px;
+  flex: none;
+}
+.btn--red {
+  background: var(--red);
+  color: #fff;
+  box-shadow: 0 10px 40px -10px rgba(225, 6, 0, 0.7);
+}
+.btn--red::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%);
+  transform: translateX(-120%);
+  transition: 0.6s;
+}
+.btn--red:hover {
+  background: var(--red-2);
+  transform: translateY(-2px);
+  box-shadow: 0 16px 50px -10px rgba(225, 6, 0, 0.9);
+}
+.btn--red:hover::after {
+  transform: translateX(120%);
+}
+.btn--ghost {
+  border: 1px solid var(--line-2);
+  color: var(--hi);
+}
+.btn--ghost:hover {
+  border-color: var(--hi);
+  background: var(--hover);
+}
+.btn.btn--sm {
+  padding: 12px 18px;
+  font-size: 18px;
+}
+@media (max-width: 640px) {
+  .btn {
+    padding: 16px 22px;
+    font-size: 20px;
+  }
+}
